@@ -15,6 +15,7 @@ Objectif création d'un jeu space invaders
 """
 
 import tkinter as tk
+import fonctions
 
 # Fonction pour afficher la partie
 def demarrer_partie():
@@ -39,8 +40,8 @@ bouton_quitter = tk.Button(frame_menu, text="Quitter", command=fenetre.quit, bg=
 bouton_quitter.place(relx=1, anchor="ne")
 zone_texte = tk.Text(frame_menu, width=20, height=1)
 zone_texte.place(anchor="nw")
-a = 1000
-zone_texte.insert("1.0", f"score={a}")
+meilleurscore = record()
+zone_texte.insert("1.0", f"Meilleur score={meilleurscore}")
 bouton_demarrer = tk.Button(frame_menu, text="Démarrer Partie", command=demarrer_partie)
 bouton_demarrer.pack(pady=20)
 

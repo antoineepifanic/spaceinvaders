@@ -6,3 +6,6 @@ def obtenir_score():
 def demarrer_partie():
     canevas = tk.Canvas(fenetrejeu, width=500, height=400, bg="black")
     canevas.pack()
+
+def record():
+    return 100
