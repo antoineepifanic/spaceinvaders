@@ -40,7 +40,7 @@ bouton_quitter = tk.Button(frame_menu, text="Quitter", command=fenetre.quit, bg=
 bouton_quitter.place(relx=1, anchor="ne")
 zone_texte = tk.Text(frame_menu, width=20, height=1)
 zone_texte.place(anchor="nw")
-meilleurscore = record()
+meilleurscore = fonctions.record()
 zone_texte.insert("1.0", f"Meilleur score={meilleurscore}")
 bouton_demarrer = tk.Button(frame_menu, text="Démarrer Partie", command=demarrer_partie)
 bouton_demarrer.pack(pady=20)
