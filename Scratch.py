@@ -27,7 +27,8 @@ bouton_quitter.place(relx=1, anchor="ne")
 zone_texte = tk.Text(fenetre, width=20, height=1)
 zone_texte.place( anchor="nw")
 a=1000
-zone_texte.insert("1.0","score=",a)
+b=str(a)
+zone_texte.insert("1.0","score=",b)
 bouton_menu = tk.Button(fenetre, text="Menu",command="" )
 
 fenetre.mainloop()
