@@ -2,7 +2,7 @@
 
 import tkinter as tk
 
-class Animation:
+class Ennemi:
     def __init__(self, canvas):
         # Garder le canvas
         self.canvas = canvas

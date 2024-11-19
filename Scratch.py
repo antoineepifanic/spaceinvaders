@@ -16,8 +16,8 @@ Objectif création d'un jeu space invaders
 
 import tkinter as tk
 import fonctions
-from RectangleControle import RectangleControle
-import Animation 
+from RectangleControle import Joueur
+from Animation import Ennemi
 
 # Fonction pour afficher la partie
 def demarrer_partie():
@@ -61,12 +61,12 @@ bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=reto
 bouton_retour_menu.place(relx=1, anchor="ne")
 
 # Ajouter l'animation au canevas de jeu
-animation = fonctions.Animation(canvas_partie)  # Passer le canevas existant
+animation = Ennemi(canvas_partie)  # Passer le canevas existant
 
 # Ajouter le rectangle bleu contrôlé
-rectangle_controle = fonctions.RectangleControle(canvas_partie)
-print(canvas_partie.coords(rectangle_controle.rect))
-rectangle_controle.rect
+joueur = Joueur(canvas_partie)
+print(canvas_partie.coords(joueur.rect))
+joueur.rect
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)

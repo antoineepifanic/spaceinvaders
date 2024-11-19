@@ -1,6 +1,7 @@
 # coding: utf-8
+from Tir import Tir
 
-class RectangleControle:
+class Joueur:
     def __init__(self, canvas):
         self.canvas = canvas
 
@@ -34,6 +35,6 @@ class RectangleControle:
     def tirer (self, event) :
         coords = self.canvas.coords(self.rect)
         start = (coords[0] + coords [2])/2
-        Tir(self.canvas, start)
+        missile =Tir(self.canvas, start)
         
 
