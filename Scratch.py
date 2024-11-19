@@ -34,7 +34,7 @@ fenetre.geometry("675x600")
 
 # Frame Menu (accueil boutons réglages et tout)
 frame_menu = tk.Frame(fenetre)
-frame_bouton =tk.Frame(frame_menu, height=25)
+frame_bouton = tk.Frame(frame_menu, height=25)
 frame_bouton.pack(fill="x", side="top")
 bouton_quitter = tk.Button(frame_bouton, text="Quitter", command=fenetre.quit, bg="red", fg="white")
 bouton_quitter.place(relx=1, anchor="ne")
@@ -45,17 +45,19 @@ zone_texte.insert("1.0", f"Meilleur score={meilleurscore}")
 bouton_demarrer = tk.Button(frame_menu, text="Démarrer Partie", command=demarrer_partie)
 bouton_demarrer.pack(side="bottom")
 canvas_menu = tk.Canvas(frame_menu, width=600, height=400, bg="lightblue")
-canvas_menu.pack( expand=True)
+canvas_menu.pack(expand=True)
 
 # Frame Partie (jeu)
 frame_partie = tk.Frame(fenetre)
 canvas_partie = tk.Canvas(frame_partie, width=950, height=600, bg="lightgreen")
 canvas_partie.pack(pady=20)
-canvas_partie.create_rectangle(180, 50, 280, 100, fill="green", outline="black", width=2)
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
 label_score.pack(pady=20)
 bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
 bouton_retour_menu.place(relx=1, anchor="ne")
+
+# Ajouter l'animation au canevas de jeu
+animation = fonctions.Animation(canvas_partie)  # Passer le canevas existant
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
