@@ -67,7 +67,6 @@ animation = Ennemi(canvas_partie)  # Passer le canevas existant
 # Ajouter le rectangle bleu contrôlé
 joueur = Joueur(canvas_partie)
 print(canvas_partie.coords(joueur.rect))
-joueur.rect
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
