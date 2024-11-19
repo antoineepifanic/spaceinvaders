@@ -9,7 +9,7 @@
 \_______)|/       |/     \|(_______/(_______/  \_______/|/    )_)   \_/   |/     \|(______/ (_______/|/   \__/\_______)
                                                                                                                       
 
-Armand de Pompignan
+Armand de Pompignan et Antoine Epifanic
 7/11 
 Objectif création d'un jeu space invaders
 """
@@ -51,7 +51,7 @@ canvas_menu.pack( expand=True)
 frame_partie = tk.Frame(fenetre)
 canvas_partie = tk.Canvas(frame_partie, width=950, height=600, bg="lightgreen")
 canvas_partie.pack(pady=20)
-canvas_partie.create_rectangle(180, 50, 280, 150, fill="green", outline="black", width=2)
+canvas_partie.create_rectangle(180, 50, 280, 100, fill="green", outline="black", width=2)
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
 label_score.pack(pady=20)
 bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
