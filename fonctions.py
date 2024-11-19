@@ -41,12 +41,13 @@ class Animation:
         # Réappeler cette méthode après 20 millisecondes
         self.canvas.after(20, self.deplacer_rectangle)
 
-# Créer la fenêtre principale
-fenetre = tk.Tk()
-fenetre.title("Animation du rectangle rebondissant")
+if __name__ == "__main__":
+    # Créer la fenêtre principale uniquement si ce fichier est exécuté directement
+    fenetre = tk.Tk()
+    fenetre.title("Animation du rectangle rebondissant")
 
-# Créer une instance de l'animation
-animation = Animation(fenetre)
+    # Créer une instance de l'animation
+    animation = Animation(fenetre)
+    fenetre.mainloop()
 
-# Lancer la boucle principale
-fenetre.mainloop()
+
