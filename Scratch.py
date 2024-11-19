@@ -14,10 +14,11 @@ Armand de Pompignan et Antoine Epifanic
 Objectif création d'un jeu space invaders
 """
 
+# coding: utf-8
 import tkinter as tk
 import fonctions
-from RectangleControle import Joueur
-from Animation import Ennemi
+from Joueur import Joueur
+from Ennemi import Ennemi
 
 # Fonction pour afficher la partie
 def demarrer_partie():
