@@ -19,7 +19,7 @@ class Animation:
         self.canvas.pack(expand=True)
 
         # Créer un rectangle (position initiale)
-        self.rect = self.canvas.create_rectangle(350, 100, 370, 120, fill="green")
+        self.rect = self.canvas.create_rectangle(330, 50, 370, 70, fill="green")
 
         # Initialiser la direction du mouvement
         self.dx = -5  # Déplacement initial vers la gauche
