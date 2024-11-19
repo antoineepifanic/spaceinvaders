@@ -20,12 +20,14 @@ import fonctions
 # Fonction pour afficher la partie
 def demarrer_partie():
     frame_menu.pack_forget()  
-    frame_partie.pack(fill="both", expand=True)  
+    frame_partie.pack(fill="both", expand=True)
+    fenetre.update_idletasks()
 
 # Fonction pour revenir au menu
 def retourner_menu():
-    frame_partie.pack_forget()  
+    frame_partie.pack_forget()
     frame_menu.pack(fill="both", expand=True) 
+    fenetre.update_idletasks()
 
 # Fenêtre de jeu globale (contient le menu et tout)
 fenetre = tk.Tk()
