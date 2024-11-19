@@ -21,6 +21,8 @@ import fonctions
 def demarrer_partie():
     frame_menu.pack_forget()  
     frame_partie.pack(fill="both", expand=True)  
+    global rectangle_controle
+    rectangle_controle = fonctions.RectangleControle(canvas_partie)
 
 # Fonction pour revenir au menu
 def retourner_menu():
@@ -58,6 +60,11 @@ bouton_retour_menu.place(relx=1, anchor="ne")
 
 # Ajouter l'animation au canevas de jeu
 animation = fonctions.Animation(canvas_partie)  # Passer le canevas existant
+
+# Ajouter le rectangle bleu contrôlé
+rectangle_controle = fonctions.RectangleControle(canvas_partie)
+print(canvas_partie.coords(rectangle_controle.rect))
+
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
