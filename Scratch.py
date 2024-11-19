@@ -17,6 +17,7 @@ Objectif création d'un jeu space invaders
 import tkinter as tk
 import fonctions
 from RectangleControle import RectangleControle
+import Animation 
 
 # Fonction pour afficher la partie
 def demarrer_partie():
