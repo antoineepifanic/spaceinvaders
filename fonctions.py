@@ -23,7 +23,7 @@ class Animation:
         # Charger l'image
         self.image = tk.PhotoImage(file="/Users/antoineepifanic/spaceinvaders-4/ressources/ennemi.png")
 
-        self.image = self.image.subsample(6, 8)  
+        self.image = self.image.subsample(9, 12)  
 
         # Créer un objet image (position initiale)
         self.image_id = self.canvas.create_image(330, 50, image=self.image)
