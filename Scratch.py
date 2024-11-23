@@ -54,7 +54,8 @@ label_titre.pack(side="top", pady=(40, 10))
 
 # Frame Partie (jeu)
 frame_partie = tk.Frame(fenetre)
-canvas_partie = tk.Canvas(frame_partie, width=950, height=600, bg="lightgreen")
+Width = 675
+canvas_partie = tk.Canvas(frame_partie, width=Width, height=600, bg="lightgreen")
 canvas_partie.pack(pady=20)
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
 label_score.pack(pady=20)
@@ -66,8 +67,8 @@ animation = Ennemi(canvas_partie)  # Passer le canevas existant
 
 # Ajouter le rectangle bleu contrôlé
 joueur = Joueur(canvas_partie)
-print(canvas_partie.coords(joueur.rect))
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
 fenetre.mainloop()
+ 
