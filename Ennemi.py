@@ -1,6 +1,8 @@
 # coding: utf-8
 
 import tkinter as tk
+from Tir_Ennemi import Tir_Ennemi 
+from random import randint 
 
 class Ennemi:
     def __init__(self, canvas):
@@ -27,4 +29,12 @@ class Ennemi:
                 minX= val[0]
         if minX <= 35 or maxX >= 635:
             self.dx *= (-1)  
+        self.missiles(coords)
         self.canvas.after(100, self.deplacer_image)
+
+    def missiles (self , coords):
+        aleat = randint (0, 2) 
+        if aleat == 1 :
+            radm = randint (0,len(coords)-1)
+            start =  (coords[radm-1][0] + coords[radm-1][1] ) /2
+            Tir_Ennemi(self.canvas , start, coords[radm][1])
