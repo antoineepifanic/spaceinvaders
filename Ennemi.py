@@ -36,5 +36,5 @@ class Ennemi:
         aleat = randint (0, 2) 
         if aleat == 1 :
             radm = randint (0,len(coords)-1)
-            start =  (coords[radm-1][0] + coords[radm-1][1] ) /2
-            Tir_Ennemi(self.canvas , start, coords[radm][1])
+            start =  (coords[radm-1][0])
+            Tir_Ennemi(self.canvas , start, coords[radm-1][1])
