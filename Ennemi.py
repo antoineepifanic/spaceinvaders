@@ -12,7 +12,7 @@ class Ennemi:
         self.image = self.image.subsample(9, 12)  
         
         for n in range (5) :
-            self.image_id = self.canvas.create_image(60 + n*75, 50, image=self.image , tags = "groupe")
+            self.rect = self.canvas.create_rectangle(60 + n*75 - 10, 50 - 10, 60 + n*75 + 10, 50 + 10, outline="blue", width=2, tags="groupe")
             self.deplacer_image()
 
     def deplacer_image(self):
