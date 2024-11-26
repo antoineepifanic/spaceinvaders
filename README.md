@@ -1,1 +1,11 @@
 # spaceinvaders
+
+à  faire :
+    - régler le problème de l'ennemi : il doit se déplacer sur tt l'écran 
+    -rajouter des ennemis et gerer les dynamiques de groupe 
+    - question des protections 
+    - gérer les collisions entre ennemi et missile 
+    -ajout des tirs des ennemis 
+    -visuels (joueurs missiles)
+    - commencer a voir comment implémenter le score 
+    - ajout de différents niveau, boss ... 

@@ -14,20 +14,23 @@ Armand de Pompignan et Antoine Epifanic
 Objectif création d'un jeu space invaders
 """
 
+# coding: utf-8
 import tkinter as tk
 import fonctions
+from Joueur import Joueur
+from Ennemi import Ennemi
 
 # Fonction pour afficher la partie
 def demarrer_partie():
     frame_menu.pack_forget()  
-    frame_partie.pack(fill="both", expand=True)  
-    global rectangle_controle
-    rectangle_controle = fonctions.RectangleControle(canvas_partie)
+    frame_partie.pack(fill="both", expand=True)
+    fenetre.update_idletasks()
 
 # Fonction pour revenir au menu
 def retourner_menu():
-    frame_partie.pack_forget()  
+    frame_partie.pack_forget()
     frame_menu.pack(fill="both", expand=True) 
+    fenetre.update_idletasks()
 
 # Fenêtre de jeu globale (contient le menu et tout)
 fenetre = tk.Tk()
@@ -51,7 +54,8 @@ label_titre.pack(side="top", pady=(40, 10))
 
 # Frame Partie (jeu)
 frame_partie = tk.Frame(fenetre)
-canvas_partie = tk.Canvas(frame_partie, width=950, height=600, bg="lightgreen")
+Width = 675
+canvas_partie = tk.Canvas(frame_partie, width=Width, height=600, bg="lightgreen")
 canvas_partie.pack(pady=20)
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
 label_score.pack(pady=20)
@@ -59,13 +63,12 @@ bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=reto
 bouton_retour_menu.place(relx=1, anchor="ne")
 
 # Ajouter l'animation au canevas de jeu
-animation = fonctions.Animation(canvas_partie)  # Passer le canevas existant
+animation = Ennemi(canvas_partie)  # Passer le canevas existant
 
 # Ajouter le rectangle bleu contrôlé
-rectangle_controle = fonctions.RectangleControle(canvas_partie)
-print(canvas_partie.coords(rectangle_controle.rect))
-
+joueur = Joueur(canvas_partie)
 
 # Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
 fenetre.mainloop()
+ 
