@@ -1,7 +1,7 @@
 # coding: utf-8
 from Tir import Tir
 
-class Joueur:
+class Joueur:# on défini le joueur
     def __init__(self, canvas):
         self.canvas = canvas
         self.rect = self.canvas.create_rectangle(200, 370, 260, 390, fill="blue")
@@ -12,7 +12,7 @@ class Joueur:
         self.canvas.bind_all("<Right>", self.deplacer_droite)
         self.canvas.bind_all("<space>", self.tirer)
 
-    def deplacer_gauche(self, event):
+    def deplacer_gauche(self, event): #les évenements pour le déplacer
         coords = self.canvas.coords(self.rect)
         if coords[0] > 0:
             self.canvas.move(self.rect, -self.dx, 0)
@@ -22,7 +22,7 @@ class Joueur:
         if coords[2] < self.canvas.winfo_width():
             self.canvas.move(self.rect, self.dx, 0)
     
-    def tirer (self, event) :
+    def tirer (self, event) : #l'evenement pour tirer
         coords = self.canvas.coords(self.rect)
         start = (coords[0] + coords [2])/2
         missile =Tir(self.canvas, start)

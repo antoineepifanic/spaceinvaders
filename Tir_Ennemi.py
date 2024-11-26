@@ -1,6 +1,6 @@
 # coding: utf-8
 
-class Tir_Ennemi:
+class Tir_Ennemi: # on crée un rectagle sur la position de l'ennemi et on le fait descendre
     def __init__(self, canvas, start, altitude):
         self.canvas = canvas
         self.rect = self.canvas.create_rectangle(start-4, altitude, start+4, altitude + 15, fill="blue")
