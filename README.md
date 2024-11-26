@@ -9,3 +9,11 @@
     -visuels (joueurs missiles)
     - commencer a voir comment implémenter le score 
     - ajout de différents niveau, boss ... 
+
+
+à faire (antoine):
+    - modifier le score pour de vrai
+    - faire un meilleur score
+    - ajouter textures vaiseaux et ennemis
+    - réparer le bouton démarrer partie
+    - faire en sorte que flèche du haut tire aussi
