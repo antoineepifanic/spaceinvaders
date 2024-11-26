@@ -33,9 +33,13 @@ class Ennemi:
         self.missiles(coords , a)
         self.canvas.after(100, self.deplacer_image(a))
 
-    def missiles (self , coords,):
+    def missiles (self , coords,a):
         aleat = randint (0, 2) 
-        if aleat == 1 :
-            radm = randint (0,len(coords)-1)
-            start =  (coords[radm-1][0])
-            Tir_Ennemi(self.canvas , start, coords[radm-1][1])
+        if a == 5 :
+            if aleat == 1 :
+                radm = randint (0,len(coords)-1)
+                start =  (coords[radm-1][0])
+                Tir_Ennemi(self.canvas , start, coords[radm-1][1])
+                a = 0 
+            else :
+                a+=1
