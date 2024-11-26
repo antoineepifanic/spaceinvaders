@@ -27,11 +27,7 @@ class Tir:
 
         for ennemi in ennemis:
             coords_ennemi = self.canvas.coords(ennemi)
-            
-            # Affiche les coordonnées pour vérifier qu'elles sont correctes
-            print(f"Coordonnées du tir : {coords_tir}")
-            print(f"Coordonnées de l'ennemi : {coords_ennemi}")
-            
+
             # Vérifie si les coordonnées de l'ennemi sont valides
             if not coords_ennemi or len(coords_ennemi) < 4:
                 continue
@@ -45,7 +41,7 @@ class Tir:
                 # Collision détectée : supprimer le tir et l'ennemi
                 self.canvas.delete(self.rect)
                 self.canvas.delete(ennemi)
-                print(f"Tir supprimé et ennemi {ennemi} supprimé après collision.")
+
                 return True  # Collision détectée
         
         return False  # Aucune collision détectée
