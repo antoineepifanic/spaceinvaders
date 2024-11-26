@@ -18,7 +18,7 @@ class Tir:
             return
         self.canvas.after(20, self.avancer)
     
-    def collision(self):
+    """def collision(self):
         coords_tir = self.canvas.coords(self.rect)
         ennemis = self.canvas.find_withtag("groupe")
         for ennemi in ennemis:
@@ -30,4 +30,4 @@ class Tir:
                 self.canvas.delete(self.rect)        
                 self.canvas.delete(ennemi)
                 return True  
-        return False  
+        return False  """
