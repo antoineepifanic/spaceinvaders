@@ -30,7 +30,7 @@ class Ennemi:
                 minX= val[0]
         if minX <= 35 or maxX >= 635:
             self.dx *= (-1)  
-        self.missiles(coords , a)
+        self.missiles(coords )
         self.canvas.after(100, self.deplacer_image())
 
     def missiles (self , coords,):
