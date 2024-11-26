@@ -4,7 +4,7 @@ import tkinter as tk
 from Tir_Ennemi import Tir_Ennemi 
 from random import randint 
 
-class Ennemi:
+class Ennemi:# on défini les énnemis
     def __init__(self, canvas):
         self.canvas = canvas
         self.dx = -3
@@ -15,7 +15,7 @@ class Ennemi:
             self.rect = self.canvas.create_rectangle(60 + n*75 - 10, 50 - 10, 60 + n*75 + 10, 50 + 10, outline="blue", width=2, tags="groupe")
             self.deplacer_image()
 
-    def deplacer_image(self):
+    def deplacer_image(self): # on fait se déplacer le groupe d'ennemis
         self.canvas.move("groupe", self.dx, 0)
         coords = []
         for nom in self.canvas.find_withtag("groupe"):
@@ -33,8 +33,8 @@ class Ennemi:
         self.missiles(coords )
         self.canvas.after(100, self.deplacer_image)
 
-    def missiles (self , coords,):
-        aleat = randint (0, 2) 
+    def missiles (self , coords,): #et on les fait tirer 
+        aleat = randint (0, 5) 
         if aleat == 1 :
             radm = randint (0,len(coords)-1)
             start =  (coords[radm-1][0])
