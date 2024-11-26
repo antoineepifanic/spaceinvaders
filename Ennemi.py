@@ -10,7 +10,7 @@ class Ennemi:# on défini les énnemis
         self.dx = -3
         self.image = tk.PhotoImage(file="ressources/ennemi.png")
         self.image = self.image.subsample(9, 12)  
-        
+        self.compteur = 0
         for n in range (5) :
             self.rect = self.canvas.create_rectangle(60 + n*75 - 10, 50 - 10, 60 + n*75 + 10, 50 + 10, outline="blue", width=2, tags="groupe")
             self.deplacer_image()
@@ -34,9 +34,13 @@ class Ennemi:# on défini les énnemis
         self.canvas.after(100, self.deplacer_image)
 
     def missiles (self , coords,): #et on les fait tirer 
-        aleat = randint (0, 5) 
-        if aleat == 1 :
-            radm = randint (0,len(coords)-1)
-            start =  (coords[radm-1][0])
-            Tir_Ennemi(self.canvas , start, coords[radm-1][1])
+        aleat = randint (0, 2) 
+        if self.compteur == 5 : # on tire une fois tt les 5 tours 
+            if aleat == 1 : #on remet de l'aleatoire pour ralentir la cadence de tir 
+                radm = randint (0,len(coords)-1)
+                start =  (coords[radm-1][0])
+                Tir_Ennemi(self.canvas , start, coords[radm-1][1])
+                self.compteur = 0 
+            else :
+                self.compteur +=1
 
