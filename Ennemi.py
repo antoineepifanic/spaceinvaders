@@ -10,14 +10,15 @@ class Ennemi:
         self.dx = -3
         self.image = tk.PhotoImage(file="ressources/ennemi.png")
         self.image = self.image.subsample(9, 12)  
+        a = 0
         for n in range (5) :
             self.image_id = self.canvas.create_image(60 + n*75, 50, image=self.image , tags = "groupe")
             self.deplacer_image()
 
-    def deplacer_image(self):
+    def deplacer_image(self, a):
         self.canvas.move("groupe", self.dx, 0)
         coords = []
-        for nom in self.canvas.find_all():
+        for nom in self.canvas.find_withtag("groupe"):
             coords.append(self.canvas.coords(nom))
         maxX = 0 
         for val in coords :
@@ -29,10 +30,10 @@ class Ennemi:
                 minX= val[0]
         if minX <= 35 or maxX >= 635:
             self.dx *= (-1)  
-        self.missiles(coords)
-        self.canvas.after(100, self.deplacer_image)
+        self.missiles(coords , a)
+        self.canvas.after(100, self.deplacer_image(a))
 
-    def missiles (self , coords):
+    def missiles (self , coords,):
         aleat = randint (0, 2) 
         if aleat == 1 :
             radm = randint (0,len(coords)-1)
