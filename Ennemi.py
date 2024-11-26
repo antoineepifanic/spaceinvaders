@@ -34,13 +34,11 @@ class Ennemi:# on défini les énnemis
         self.canvas.after(100, self.deplacer_image)
 
     def missiles (self , coords,): #et on les fait tirer 
-        aleat = randint (0, 2) 
-        if self.compteur == 5 : # on tire une fois tt les 5 tours 
-            if aleat == 1 : #on remet de l'aleatoire pour ralentir la cadence de tir 
-                radm = randint (0,len(coords)-1)
-                start =  (coords[radm-1][0])
-                Tir_Ennemi(self.canvas , start, coords[radm-1][1])
-                self.compteur = 0 
-            else :
-                self.compteur +=1
+        if self.compteur == 15 : # on tire une fois tt les 5 tours  #on remet de l'aleatoire pour ralentir la cadence de tir 
+            radm = randint (0,len(coords)-1)
+            start =  (coords[radm-1][0])
+            Tir_Ennemi(self.canvas , start, coords[radm-1][1])
+            self.compteur = 0 
+        else :
+            self.compteur +=1
 
