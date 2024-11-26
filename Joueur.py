@@ -4,7 +4,7 @@ from Tir import Tir
 class Joueur:# on défini le joueur
     def __init__(self, canvas):
         self.canvas = canvas
-        self.rect = self.canvas.create_rectangle(200, 370, 260, 390, fill="blue")
+        self.rect = self.canvas.create_rectangle(210, 370, 250, 390, fill="blue")
         self.dx = 20
 
         # Lier les touches pour le contrôle
