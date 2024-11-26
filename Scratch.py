@@ -15,29 +15,27 @@ Objectif création d'un jeu space invaders
 """
 
 # coding: utf-8
+# coding: utf-8
 import tkinter as tk
 import fonctions
 from Joueur import Joueur
 from Ennemi import Ennemi
+from PIL import Image, ImageTk
 
-# Fonction pour afficher la partie
 def demarrer_partie():
     frame_menu.pack_forget()  
     frame_partie.pack(fill="both", expand=True)
     fenetre.update_idletasks()
 
-# Fonction pour revenir au menu
 def retourner_menu():
     frame_partie.pack_forget()
     frame_menu.pack(fill="both", expand=True) 
     fenetre.update_idletasks()
 
-# Fenêtre de jeu globale (contient le menu et tout)
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
 fenetre.geometry("675x600")
 
-# Frame Menu (accueil boutons réglages et tout)
 frame_menu = tk.Frame(fenetre)
 frame_bouton = tk.Frame(frame_menu, height=25)
 frame_bouton.pack(fill="x", side="top")
@@ -49,26 +47,28 @@ meilleurscore = fonctions.record()
 zone_texte.insert("1.0", f"Meilleur score={meilleurscore}")
 bouton_demarrer = tk.Button(frame_menu, text="Démarrer Partie", command=demarrer_partie)
 bouton_demarrer.pack(side="bottom")
-label_titre = tk.Label(frame_menu, text="SP4C3 INV4D3R$", font=('Helvetica', 30))
+label_titre = tk.Label(frame_menu, text="SPACE INVADERS", font=('Helvetica', 30))
 label_titre.pack(side="top", pady=(40, 10))
 
-# Frame Partie (jeu)
 frame_partie = tk.Frame(fenetre)
 Width = 675
-canvas_partie = tk.Canvas(frame_partie, width=Width, height=600, bg="lightgreen")
+canvas_partie = tk.Canvas(frame_partie, width=Width, height=600)
 canvas_partie.pack(pady=20)
+
+background_image = Image.open("ressources/background.jpg")
+background_image = background_image.resize((Width, 600))
+background_photo = ImageTk.PhotoImage(background_image)
+canvas_partie.create_image(0, 0, image=background_photo, anchor="nw")
+canvas_partie.image = background_photo
+
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
 label_score.pack(pady=20)
 bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
 bouton_retour_menu.place(relx=1, anchor="ne")
 
-# Ajouter l'animation au canevas de jeu
-animation = Ennemi(canvas_partie)  # Passer le canevas existant
+animation = Ennemi(canvas_partie)
 
-# Ajouter le rectangle bleu contrôlé
 joueur = Joueur(canvas_partie)
 
-# Affichage initial du menu
 frame_menu.pack(fill="both", expand=True)
 fenetre.mainloop()
- 
