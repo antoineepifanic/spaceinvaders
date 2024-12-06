@@ -30,10 +30,12 @@ class Ennemi:# on défini les énnemis
                 minX= val[0]
         if minX <= 35 or maxX >= 635:
             self.dx *= (-1)  
+        self.fin_de_partie
         self.missiles(coords )
         self.canvas.after(100, self.deplacer_image)
 
     def missiles (self , coords,): #et on les fait tirer 
+        self.fin_de_partie
         if self.compteur == 15 : # on tire une fois tt les 5 tours  #on remet de l'aleatoire pour ralentir la cadence de tir 
             radm = randint (0,len(coords)-1)
             start =  (coords[radm-1][0])
@@ -41,4 +43,8 @@ class Ennemi:# on défini les énnemis
             self.compteur = 0 
         else :
             self.compteur +=1
-
+    def fin_de_partie (self) :
+        if len(self.canvas.find_withtag("groupe"))==0 :
+            texte = tk.Label(self.canvas , text = "Fin de partie",  font=('Helvetica', 30))
+            print ("vous avez gagné")
+            self.canvas.pack(pady=20)

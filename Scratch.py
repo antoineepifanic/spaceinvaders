@@ -26,6 +26,8 @@ def demarrer_partie():
     frame_menu.pack_forget()  
     frame_partie.pack(fill="both", expand=True)
     fenetre.update_idletasks()
+    animation = Ennemi(canvas_partie)
+    joueur = Joueur(canvas_partie)
 
 def retourner_menu():
     frame_partie.pack_forget()
@@ -51,7 +53,7 @@ label_titre = tk.Label(frame_menu, text="SPACE INVADERS", font=('Helvetica', 30)
 label_titre.pack(side="top", pady=(40, 10))
 
 frame_partie = tk.Frame(fenetre)
-Width = 675
+Width = 675 
 canvas_partie = tk.Canvas(frame_partie, width=Width, height=600)
 canvas_partie.pack(pady=20)
 
@@ -66,9 +68,7 @@ label_score.pack(pady=20)
 bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
 bouton_retour_menu.place(relx=1, anchor="ne")
 
-animation = Ennemi(canvas_partie)
 
-joueur = Joueur(canvas_partie)
 
 frame_menu.pack(fill="both", expand=True)
 fenetre.mainloop()
