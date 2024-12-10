@@ -4,7 +4,7 @@
 class Tir:# la classe tire on cré un rectangle sur la position du joueur et on le fait avancer vers le haut.
     def __init__(self, canvas, start):
         self.canvas = canvas
-        self.rect = self.canvas.create_rectangle(start-5, 370, start+5, 390, fill="red")
+        self.rect = self.canvas.create_rectangle(start-5, 470, start+5, 490, fill="red")
         self.dy = -5
         self.avancer() 
     
