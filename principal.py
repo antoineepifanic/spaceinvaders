@@ -57,8 +57,11 @@ canvas_menu.create_text(20, 20, text=f"Meilleur score={meilleurscore}", fill="wh
 canvas_menu.create_text(337, 550, text="Démarrer Partie", fill="white", font=('Helvetica', 20), tags="demarrer")
 canvas_menu.tag_bind("demarrer", "<Button-1>", demarrer_partie)
 
-# Titre "SPACE INVADERS"
-canvas_menu.create_text(337, 100, text="SPACE INVADERS", fill="lime", font=('Helvetica', 30))
+# Chargement et positionnement de l'image du logo
+logo_image = Image.open("ressources/logospaceinvaders.jpg")
+logo_image = logo_image.resize((400, 200))  # Redimensionnement de l'image
+logo_photo = ImageTk.PhotoImage(logo_image)
+canvas_menu.create_image(337, 200, image=logo_photo)
 
 # Zone de jeu
 frame_partie = tk.Frame(fenetre)
