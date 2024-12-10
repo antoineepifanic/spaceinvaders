@@ -40,11 +40,10 @@ def retourner_menu():
     frame_menu.pack(fill="both", expand=True) 
     fenetre.update_idletasks()
 
-# Fenêtre principale
+# Fenêtre principale (accueil du jeu)
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
 fenetre.geometry("675x600")
-
 # Menu principal
 frame_menu = tk.Frame(fenetre)
 frame_bouton = tk.Frame(frame_menu, height=25)
@@ -63,20 +62,25 @@ label_titre.pack(side="top", pady=(40, 10))
 # Zone de jeu
 frame_partie = tk.Frame(fenetre)
 Width = 675
-canvas_partie = tk.Canvas(frame_partie, width=Width, height=600)
-canvas_partie.pack(pady=20)
+
+# Bouton de retour au menu
+bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
+bouton_retour_menu.pack(side="top", anchor="ne", pady=(10, 0), padx=(0, 10))  # Place en haut à droite
+
+# Canvas de jeu
+canvas_partie = tk.Canvas(frame_partie, width=Width, height=550)  # Hauteur réduite pour éviter le chevauchement
+canvas_partie.pack(pady=(10, 20))  # Ajoute un espace au-dessus et au-dessous
 
 # Chargement de l'image d'arrière-plan
 background_image = Image.open("ressources/background.jpg")
-background_image = background_image.resize((Width, 600))
+background_image = background_image.resize((Width, 550))  # Adapter la hauteur du canvas
 background_photo = ImageTk.PhotoImage(background_image)
 background_id = canvas_partie.create_image(0, 0, image=background_photo, anchor="nw", tags="background")
 canvas_partie.image = background_photo  # Évite le garbage collection
 
+# Label pour le score
 label_score = tk.Label(frame_partie, text="Score : 0", font=("Arial", 16))
-label_score.pack(pady=20)
-bouton_retour_menu = tk.Button(frame_partie, text="Retour au menu", command=retourner_menu)
-bouton_retour_menu.place(relx=1, anchor="ne")
+label_score.pack(pady=(0, 20))  # Ajoute un espace en bas
 
 # Afficher le menu principal au démarrage
 frame_menu.pack(fill="both", expand=True)
