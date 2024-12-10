@@ -15,8 +15,7 @@ Objectif création d'un jeu space invaders
 """
 
 # coding: utf-8
-# coding: utf-8
-# coding: utf-8
+
 import tkinter as tk
 import fonctions
 from Joueur import Joueur
