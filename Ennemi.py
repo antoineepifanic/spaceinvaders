@@ -13,7 +13,7 @@ class Ennemi:  # on définit les ennemis
         self.photo = ImageTk.PhotoImage(self.image)
         self.compteur = 0
         self.ennemis = []
-        for n in range(5):
+        for n in range(8):
             ennemi = self.canvas.create_image(60 + n*75, 50, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         self.deplacer_image()
