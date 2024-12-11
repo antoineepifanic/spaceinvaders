@@ -15,23 +15,29 @@ class Ennemi:
         self.ennemis = []
         self.ennemis_tirs = []
         
-        # Créer une liste avec les positions initiales des ennemis
-        positions_initiales = [60 + n*75 for n in range(8)]
-        
-        for pos in positions_initiales:
-            ennemi = self.canvas.create_image(pos, 50, image=self.photo, tags="groupe")
+        # Créer les ennemis
+        for n in range(8):
+            ennemi = self.canvas.create_image(60 + n*75, 50, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         
+        # Démarrer le mouvement
         self.deplacer_image()
 
     def deplacer_image(self):
-        # Collecter les coordonnées actuelles de tous les ennemis existants
+        # Vérifier si des ennemis existent encore
+        if not self.ennemis:
+            return
+        
+        # Déplacer le groupe d'ennemis
+        self.canvas.move("groupe", self.dx, 0)
+        
+        # Collecter les coordonnées actuelles des ennemis existants
         coords = []
         for ennemi in self.ennemis:
             if ennemi in self.canvas.find_all():
                 coords.append(self.canvas.coords(ennemi)[0])
         
-        # Vérifier s'il y a des ennemis
+        # S'il n'y a plus de coordonnées, arrêter
         if not coords:
             return
         
@@ -43,25 +49,28 @@ class Ennemi:
         if minX <= 35 or maxX >= 635:
             self.dx *= -1
         
-        # Déplacer le groupe d'ennemis
-        self.canvas.move("groupe", self.dx, 0)
-        
+        # Vérifier la fin de partie
         self.fin_de_partie()
+        
+        # Générer des missiles
         self.missiles(coords)
         
-        # Vérifier la collision entre les tirs ennemis et le vaisseau
-        for tir_ennemi in self.ennemis_tirs:
-            tir_ennemi.CollisionJoueur()
+        # Vérifier les collisions des tirs ennemis
+        for tir_ennemi in list(self.ennemis_tirs):  # Utiliser une copie de liste
+            try:
+                tir_ennemi.CollisionJoueur()
+            except Exception:
+                # Supprimer le tir s'il y a une erreur
+                self.ennemis_tirs.remove(tir_ennemi)
         
+        # Continuer le mouvement
         self.canvas.after(100, self.deplacer_image)
 
     def missiles(self, coords):
-        self.fin_de_partie()
         if self.compteur == 15 and coords:
-            # Utiliser l'index des coordonnées pour sélectionner un ennemi
             radm = randint(0, len(coords)-1)
             start = coords[radm]
-            tir_ennemi = Tir_Ennemi(self.canvas, start, 50)  # 50 est la hauteur initiale des ennemis
+            tir_ennemi = Tir_Ennemi(self.canvas, start, 50)
             self.ennemis_tirs.append(tir_ennemi)
             self.compteur = 0
         else:
@@ -69,6 +78,5 @@ class Ennemi:
 
     def fin_de_partie(self):
         if len(self.ennemis) == 0:
-            texte = tk.Label(self.canvas, text="Fin de partie", font=('Helvetica', 30))
             print("Vous avez gagné")
-            self.canvas.pack(pady=20)
+            # Ajouter ici votre logique de fin de partie

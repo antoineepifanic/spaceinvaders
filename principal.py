@@ -15,6 +15,7 @@ Objectif création d'un jeu space invaders
 """
 
 # coding: utf-8
+# coding: utf-8
 import tkinter as tk
 import fonctions
 from Joueur import Joueur
@@ -38,10 +39,24 @@ def retourner_menu():
     frame_partie.pack_forget()
     canvas_menu.pack(fill="both", expand=True)
     fenetre.update_idletasks()
-    
+
 def update_lives_display():
+    global lives_label
     lives_label.config(text=f"Vies: {joueur.vies}")
-    fenetre.after(100, update_lives_display)
+    if joueur.vies > 0:
+        fenetre.after(100, update_lives_display)
+    else:
+        game_over()
+
+def game_over():
+    # Afficher un message de game over
+    canvas_partie.create_text(
+        Width // 2, 
+        Height // 2, 
+        text="GAME OVER", 
+        font=('Helvetica', 36), 
+        fill='red'
+    )
 
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
@@ -98,7 +113,3 @@ lives_label = tk.Label(frame_partie, text="Vies: 3", font=("Arial", 16))
 lives_label.pack(side="right", pady=(0, 20), padx=(20, 0))
 
 fenetre.mainloop()
-
-""""
-
-"""

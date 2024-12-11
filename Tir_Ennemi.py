@@ -19,7 +19,7 @@ class Tir_Ennemi:
 
     def CollisionJoueur(self):
         vaisseau = self.canvas.find_withtag("vaisseau")
-        if vaisseau and self.can_coll:
+        if vaisseau:
             coords_vaisseau = self.canvas.bbox(vaisseau)
             coords_tir_ennemi = self.canvas.bbox(self.rect)
             if (coords_tir_ennemi[2] > coords_vaisseau[0] and
@@ -27,6 +27,13 @@ class Tir_Ennemi:
                 coords_tir_ennemi[3] > coords_vaisseau[1] and
                 coords_tir_ennemi[1] < coords_vaisseau[3]):
                 print("Collision avec le vaisseau !")
-                # Ajouter le code pour gérer la collision avec le vaisseau (perdre des vies, etc.)
+                
+                # Récupérer l'instance du joueur à partir de la fenêtre
+                joueur = self.canvas.winfo_toplevel().joueur
+                
+                game_over = joueur.perdre_vie()
+                if game_over:
+                    print("Game Over !")
+                
                 return True
         return False
