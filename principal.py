@@ -28,6 +28,7 @@ def demarrer_partie(event):
     global animation, joueur
     animation = Ennemi(canvas_partie)
     joueur = Joueur(canvas_partie)
+    fenetre.joueur = joueur  # Stocker le joueur comme attribut de la fenêtre
     update_lives_display()
 
 def retourner_menu():
@@ -37,14 +38,14 @@ def retourner_menu():
     frame_partie.pack_forget()
     canvas_menu.pack(fill="both", expand=True)
     fenetre.update_idletasks()
-
+    
 def update_lives_display():
     lives_label.config(text=f"Vies: {joueur.vies}")
     fenetre.after(100, update_lives_display)
 
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
-fenetre.geometry("800x650")  # Taille de la fenêtre agrandie
+fenetre.geometry("800x800")  # Taille de la fenêtre agrandie
 
 # Menu principal
 canvas_menu = tk.Canvas(fenetre, bg="black", width=800, height=650)
@@ -97,3 +98,7 @@ lives_label = tk.Label(frame_partie, text="Vies: 3", font=("Arial", 16))
 lives_label.pack(side="right", pady=(0, 20), padx=(20, 0))
 
 fenetre.mainloop()
+
+""""
+
+"""

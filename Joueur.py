@@ -32,5 +32,5 @@ class Joueur:
 
     def perdre_vie(self):
         self.vies -= 1
-        print(f"Vous avez {self.vies} vies restantes.")
-        # Ajouter le code pour afficher la perte de vie à l'écran
+        print(f"Vous avez {self.vies} vies restantes.") #débug
+        return self.vies == 0  # Retourne True si plus de vies
