@@ -4,25 +4,26 @@ from Tir_Ennemi import Tir_Ennemi
 from random import randint
 from PIL import Image, ImageTk
 
-class Ennemi:  # on définit les ennemis
+class Ennemi:
     def __init__(self, canvas):
         self.canvas = canvas
         self.dx = -3
         self.image = Image.open("ressources/ennemiblanc.png")
-        self.image = self.image.resize((40, 40))  # Redimensionner l'image à une taille appropriée
+        self.image = self.image.resize((40, 40))
         self.photo = ImageTk.PhotoImage(self.image)
         self.compteur = 0
         self.ennemis = []
+        self.ennemis_tirs = []
         for n in range(8):
             ennemi = self.canvas.create_image(60 + n*75, 50, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         self.deplacer_image()
 
-    def deplacer_image(self):  # on fait se déplacer le groupe d'ennemis
+    def deplacer_image(self):
         self.canvas.move("groupe", self.dx, 0)
         coords = []
         for ennemi in self.ennemis:
-            if ennemi in self.canvas.find_all():  # Vérifier si l'ennemi existe encore dans le canvas
+            if ennemi in self.canvas.find_all():
                 coords.append(self.canvas.coords(ennemi))
         maxX = 0
         for val in coords:
@@ -36,14 +37,20 @@ class Ennemi:  # on définit les ennemis
             self.dx *= -1
         self.fin_de_partie()
         self.missiles(coords)
+
+        # Vérifier la collision entre les tirs ennemis et le vaisseau
+        for tir_ennemi in self.ennemis_tirs:
+            tir_ennemi.CollisionJoueur()
+
         self.canvas.after(100, self.deplacer_image)
 
-    def missiles(self, coords):  # et on les fait tirer
+    def missiles(self, coords):
         self.fin_de_partie()
-        if self.compteur == 15 and coords:  # Vérifier si coords n'est pas vide
+        if self.compteur == 15 and coords:
             radm = randint(0, len(coords)-1)
             start = coords[radm][0]
-            Tir_Ennemi(self.canvas, start, coords[radm][1])
+            tir_ennemi = Tir_Ennemi(self.canvas, start, coords[radm][1])
+            self.ennemis_tirs.append(tir_ennemi)
             self.compteur = 0
         else:
             self.compteur += 1

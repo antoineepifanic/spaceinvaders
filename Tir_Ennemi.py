@@ -1,16 +1,27 @@
-# coding: utf-8
-
-class Tir_Ennemi: # on crée un rectagle sur la position de l'ennemi et on le fait descendre
+class Tir_Ennemi:
     def __init__(self, canvas, start, altitude):
         self.canvas = canvas
         self.rect = self.canvas.create_rectangle(start-4, altitude, start+4, altitude + 15, fill="blue")
         self.dy = 5
-        self.avancer() 
-    def avancer(self) :
-        self.canvas.move(self.rect,0, self.dy)
+        self.avancer()
+
+    def avancer(self):
+        self.canvas.move(self.rect, 0, self.dy)
         coords = self.canvas.coords(self.rect)
-        if coords[3] >= 650:
-            self.canvas.delete(self.rect)
-            return
+
+        # Vérifier la collision avec le vaisseau
+        self.CollisionJoueur()
+
         self.canvas.after(20, self.avancer)
 
+    def CollisionJoueur(self):
+        vaisseau = self.canvas.find_withtag("vaisseau")
+        if vaisseau:
+            coords_vaisseau = self.canvas.bbox(vaisseau)
+            coords_tir_ennemi = self.canvas.bbox(self.rect)
+            if (coords_tir_ennemi[2] > coords_vaisseau[0] and
+                coords_tir_ennemi[0] < coords_vaisseau[2] and
+                coords_tir_ennemi[3] > coords_vaisseau[1] and
+                coords_tir_ennemi[1] < coords_vaisseau[3]):
+                print("Collision avec le vaisseau !")
+                # Ajouter le code pour gérer la collision avec le vaisseau (perdre des vies, etc.)
