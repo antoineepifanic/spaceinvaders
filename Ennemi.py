@@ -12,6 +12,7 @@ class Ennemi:
         self.image = self.image.resize((40, 40))
         self.photo = ImageTk.PhotoImage(self.image)
         self.compteur = 0
+        self.descente_compteur = 0  # Nouveau compteur pour la descente
         self.ennemis = []
         self.ennemis_tirs = []
         
@@ -68,18 +69,26 @@ class Ennemi:
                 # Supprimer le tir s'il y a une erreur
                 self.ennemis_tirs.remove(tir_ennemi)
         
+        # Incrémenter le compteur de descente
+        self.descente_compteur += 1
+        
+        # Descendre tous les 50 * 100ms = 5000ms (5 secondes)
+        if self.descente_compteur >= 30:
+            self.canvas.move("groupe", 0, 20)  # Descendre de 100 pixels
+            self.descente_compteur = 0
+        
         # Continuer le mouvement
         self.canvas.after(100, self.deplacer_image)
 
     def missiles(self, coords):
-        if self.compteur == 15 and coords:
-            radm = randint(0, len(coords)-1)
-            start = coords[radm]
-            tir_ennemi = Tir_Ennemi(self.canvas, start, 50)
-            self.ennemis_tirs.append(tir_ennemi)
-            self.compteur = 0
-        else:
-            self.compteur += 1
+        # Parcourir tous les ennemis
+        for ennemi in self.ennemis:
+            if ennemi in self.canvas.find_all():
+                # Générer un nombre aléatoire pour décider de tirer
+                # Vous pouvez ajuster la probabilité en changeant le nombre
+                if randint(1, 50) == 1:  # 1% de chance de tirer à chaque frame
+                    tir_ennemi = Tir_Ennemi(self.canvas, ennemi, 0)
+                    self.ennemis_tirs.append(tir_ennemi)
 
     def fin_de_partie(self):
         if len(self.ennemis) == 0:
