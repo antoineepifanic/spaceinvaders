@@ -14,10 +14,9 @@ class Ennemi:
         self.photo = ImageTk.PhotoImage(self.image)
         self.compteur = 0
         self.descente_compteur = 0
-        self.appa_bonu =0  # Nouveau compteur pour la descente
+        self.apparition_bonus = 0  # Renommé de appa_bonu
         self.ennemis = []
         self.ennemis_tirs = []
-        
         
         # Créer les ennemis (première rangée)
         for n in range(8):
@@ -72,17 +71,20 @@ class Ennemi:
                 # Supprimer le tir s'il y a une erreur
                 self.ennemis_tirs.remove(tir_ennemi)
         
-        # Incrémenter le compteur de descente
+        # Incrémenter les compteurs
         self.descente_compteur += 1
-        self.appa_bonu +=1
+        self.apparition_bonus += 1
         
-        # Descendre tous les 50 * 100ms = 5000ms (5 secondes)
+        # Descendre tous les 30 * 100ms = 3000ms
         if self.descente_compteur >= 30:
-            self.canvas.move("groupe", 0, 20)  # Descendre de 100 pixels
+            self.canvas.move("groupe", 0, 20)
             self.descente_compteur = 0
         
-        if self.appa_bonu == 160 :
-            bonus = Ennemi_bonus
+        # Créer le boss bonus
+        if self.apparition_bonus == 160:
+            self.apparition_bonus = 0  # Réinitialiser le compteur
+            self.boss = Ennemi_bonus(self.canvas)
+
         # Continuer le mouvement
         self.canvas.after(100, self.deplacer_image)
 
@@ -91,7 +93,6 @@ class Ennemi:
         for ennemi in self.ennemis:
             if ennemi in self.canvas.find_withtag("groupe"):
                 # Générer un nombre aléatoire pour décider de tirer
-                # Vous pouvez ajuster la probabilité en changeant le nombre
                 if randint(1, 50) == 1:  # 1% de chance de tirer à chaque frame
                     tir_ennemi = Tir_Ennemi(self.canvas, ennemi, 0)
                     self.ennemis_tirs.append(tir_ennemi)
@@ -99,4 +100,3 @@ class Ennemi:
     def fin_de_partie(self):
         if len(self.ennemis) == 0:
             print("Vous avez gagné")
-            # Ajouter ici votre logique de fin de partie
