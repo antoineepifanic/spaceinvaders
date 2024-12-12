@@ -1,5 +1,25 @@
+# coding: utf-8
+"""
+Tir_Ennemi.py
+Gestion des tirs ennemis dans le jeu Space Invaders
+
+Ce module gère le comportement des missiles tirés par les ennemis,
+incluant leur déplacement et leurs interactions avec les éléments du jeu.
+
+Date de création : Décembre 2024
+Auteur : Antoine & Armand
+"""
+
 class Tir_Ennemi:
     def __init__(self, canvas, start, altitude):
+        """
+        Initialise un tir ennemi.
+
+        Args:
+            canvas (tk.Canvas): Zone de dessin du jeu
+            start (int): Objet ennemi qui tire le missile
+            altitude (int, optional): Altitude de départ non utilisée
+        """
         self.canvas = canvas
         current_coords = self.canvas.coords((start,))
         self.rect = self.canvas.create_rectangle(
@@ -14,6 +34,12 @@ class Tir_Ennemi:
         self.avancer()
 
     def avancer(self):
+        """
+        Déplace le missile vers le bas et gère ses interactions.
+        
+        Vérifie les collisions avec les protections et le vaisseau.
+        Supprime le missile s'il sort de l'écran.
+        """
         self.canvas.move(self.rect, 0, self.dy)
         coords = self.canvas.coords(self.rect)
         
@@ -22,12 +48,12 @@ class Tir_Ennemi:
             self.canvas.delete(self.rect)
             return
         
-        # Vérifier d'abord la collision avec les protections
+        # Vérifier la collision avec les protections
         if self.CollisionProtection():
             self.canvas.delete(self.rect)
             return
         
-        # Ensuite vérifier la collision avec le vaisseau
+        # Vérifier la collision avec le vaisseau
         if self.CollisionJoueur():
             self.canvas.delete(self.rect)
             self.can_coll = False
@@ -36,38 +62,54 @@ class Tir_Ennemi:
         self.canvas.after(20, self.avancer)
 
     def CollisionProtection(self):
+        """
+        Détecte et gère les collisions avec les blocs de protection.
+
+        Returns:
+            bool: True si une collision est détectée, False sinon
+        """
         coords_tir = self.canvas.bbox(self.rect)
-        # Trouver tous les rectangles gris (protections)
         all_items = self.canvas.find_all()
         for item in all_items:
-            # Vérifier si l'item est un rectangle gris
-            if self.canvas.type(item) == "rectangle":
-                fill_color = self.canvas.itemcget(item, "fill")
-                if fill_color == "gray":
-                    coords_protection = self.canvas.bbox(item)
-                    if coords_protection:  # Vérifier si le rectangle existe toujours
-                        if (coords_tir[2] > coords_protection[0] and
-                            coords_tir[0] < coords_protection[2] and
-                            coords_tir[3] > coords_protection[1] and
-                            coords_tir[1] < coords_protection[3]):
-                            # Collision détectée, supprimer le bloc de protection
-                            self.canvas.delete(item)
-                            return True
+            # Vérifier si l'item est un rectangle gris (protection)
+            if (self.canvas.type(item) == "rectangle" and 
+                self.canvas.itemcget(item, "fill") == "gray"):
+                coords_protection = self.canvas.bbox(item)
+                if coords_protection and self._verifier_collision(coords_tir, coords_protection):
+                    self.canvas.delete(item)
+                    return True
         return False
 
     def CollisionJoueur(self):
+        """
+        Détecte et gère les collisions avec le vaisseau du joueur.
+
+        Returns:
+            bool: True si une collision est détectée, False sinon
+        """
         vaisseau = self.canvas.find_withtag("vaisseau")
         if vaisseau:
             coords_vaisseau = self.canvas.bbox(vaisseau)
             coords_tir_ennemi = self.canvas.bbox(self.rect)
-            if (coords_tir_ennemi[2] > coords_vaisseau[0] and
-                coords_tir_ennemi[0] < coords_vaisseau[2] and
-                coords_tir_ennemi[3] > coords_vaisseau[1] and
-                coords_tir_ennemi[1] < coords_vaisseau[3]):
-                print("Collision avec le vaisseau !")
+            
+            if self._verifier_collision(coords_tir_ennemi, coords_vaisseau):
                 joueur = self.canvas.winfo_toplevel().joueur
                 game_over = joueur.perdre_vie()
-                if game_over:
-                    print("Game Over !")
                 return True
         return False
+
+    def _verifier_collision(self, coords1, coords2):
+        """
+        Vérifie s'il y a une collision entre deux rectangles.
+
+        Args:
+            coords1 (list): Coordonnées du premier rectangle
+            coords2 (list): Coordonnées du second rectangle
+
+        Returns:
+            bool: True s'il y a collision, False sinon
+        """
+        return (coords1[2] > coords2[0] and
+                coords1[0] < coords2[2] and
+                coords1[3] > coords2[1] and
+                coords1[1] < coords2[3])
