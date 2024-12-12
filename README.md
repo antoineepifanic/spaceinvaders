@@ -42,3 +42,9 @@ Tous les collisions sont gérées en analysant les coordonnées des éléments d
 comme par exemple :
 
 ligne 112 dans Tir_Ennemi.py
+
+NB IMPORTANT :
+
+J'ai travaillé sous Mac et il semble que le placement et la taille des fenêtres ne sont pas toujours exactement les mêmes entre les 2 OS,
+normalement la fenêtre de jeu devrai s'ouvrir et on devrait voir score et point de vie directement sans avoir à agrandir mais ce n'est pas 
+forcément le cas sous windows, désolé !
