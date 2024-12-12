@@ -5,6 +5,7 @@ class Tir:
         self.canvas = canvas
         self.rect = self.canvas.create_rectangle(start-5, 470, start+5, 490, fill="red")
         self.dy = -5
+        self.points_par_ennemi = 25
         self.avancer()
 
     def avancer(self):
@@ -58,6 +59,10 @@ class Tir:
                 coords_tir[1] < coords_ennemi[3]):
                 self.canvas.delete(self.rect)
                 self.canvas.delete(ennemi)
+                # Mettre à jour le score
+                fenetre = self.canvas.winfo_toplevel()
+                fenetre.score += self.points_par_ennemi
+                fenetre.update_score()
                 self.canvas.update()
                 return True
         return False
