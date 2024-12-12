@@ -1,3 +1,12 @@
+"""
+fonctions.py
+
+Ce module contient quelques fonctions diverses difficiles à placer dans d'autres fichiers.
+
+Date de création : Décembre 2024
+Auteur : Antoine & Armand
+"""
+
 # coding: utf-8
 import tkinter as tk
 from Joueur import Joueur
