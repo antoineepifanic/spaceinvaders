@@ -81,12 +81,34 @@ def update_score():
     label_score.config(text=f"Score : {fenetre.score}")
 
 def game_over():
+    # Supprimer tous les éléments du jeu sauf l'arrière-plan
+    for item in canvas_partie.find_all():
+        # Ne pas supprimer l'arrière-plan qui a le tag "background"
+        if "background" not in canvas_partie.gettags(item):
+            canvas_partie.delete(item)
+    
+    # Réinitialiser les variables globales si nécessaire
+    global animation, joueur, protections
+    animation = None
+    joueur = None
+    protections = None
+    
+    # Afficher le message Game Over
     canvas_partie.create_text(
         Width // 2, 
         Height // 2, 
         text="GAME OVER", 
         font=('Helvetica', 36), 
         fill='red'
+    )
+    
+    # Optionnellement, afficher le score final
+    canvas_partie.create_text(
+        Width // 2,
+        (Height // 2) + 50,
+        text=f"Score final : {fenetre.score}",
+        font=('Helvetica', 24),
+        fill='white'
     )
 
 # Initialisation de la fenêtre principale
