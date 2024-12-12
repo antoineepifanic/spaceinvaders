@@ -6,6 +6,7 @@ class Tir:
         self.rect = self.canvas.create_rectangle(start-5, 470, start+5, 490, fill="red")
         self.dy = -5
         self.points_par_ennemi = 25
+        self.points_boss = 150
         self.avancer()
 
     def avancer(self):
@@ -17,7 +18,11 @@ class Tir:
             self.canvas.delete(self.rect)
             return
             
-        # Ensuite vérifier la collision avec les ennemis
+        # Vérifier la collision avec le boss
+        if self.collision_boss():
+            return
+            
+        # Ensuite vérifier la collision avec les ennemis normaux
         if self.collision_ennemi():
             return
             
@@ -46,6 +51,26 @@ class Tir:
                             # Collision détectée, supprimer le bloc de protection
                             self.canvas.delete(item)
                             return True
+        return False
+
+    def collision_boss(self):
+        coords_tir = self.canvas.bbox(self.rect)
+        boss = self.canvas.find_withtag("boss")
+        
+        for boss_item in boss:
+            coords_boss = self.canvas.bbox(boss_item)
+            if coords_boss and (coords_tir[2] > coords_boss[0] and
+                coords_tir[0] < coords_boss[2] and
+                coords_tir[3] > coords_boss[1] and
+                coords_tir[1] < coords_boss[3]):
+                self.canvas.delete(self.rect)
+                self.canvas.delete(boss_item)
+                # Mettre à jour le score avec les points du boss
+                fenetre = self.canvas.winfo_toplevel()
+                fenetre.score += self.points_boss
+                fenetre.update_score()
+                self.canvas.update()
+                return True
         return False
 
     def collision_ennemi(self):
