@@ -21,15 +21,19 @@ import fonctions
 from Joueur import Joueur
 from Ennemi import Ennemi
 from PIL import Image, ImageTk
+from Protections import Protections
+
+# Définir toutes les fonctions ici
 
 def demarrer_partie(event):
     canvas_menu.pack_forget()
     frame_partie.pack(fill="both", expand=True)
     fenetre.update_idletasks()
-    global animation, joueur
+    global animation, joueur, protections
     animation = Ennemi(canvas_partie)
     joueur = Joueur(canvas_partie)
     fenetre.joueur = joueur  # Stocker le joueur comme attribut de la fenêtre
+    protections = Protections(canvas_partie, width=Width, y_position=250)
     update_lives_display()
 
 def retourner_menu():
@@ -49,7 +53,6 @@ def update_lives_display():
         game_over()
 
 def game_over():
-    # Afficher un message de game over
     canvas_partie.create_text(
         Width // 2, 
         Height // 2, 
@@ -58,6 +61,7 @@ def game_over():
         fill='red'
     )
 
+# Puis la partie graphique en dessous
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
 fenetre.geometry("800x800")  # Taille de la fenêtre agrandie
