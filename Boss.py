@@ -5,10 +5,11 @@ from random import randint
 from PIL import Image, ImageTk 
 
 class Ennemi_bonus :
-    def bonus (self, canvas, altitude):
+    def bonus (self, canvas):
         self.canvas = canvas
         self.dx = 7
-        self.image = Image.open("ressources/bonus.png")
+        self.photo = ImageTk.PhotoImage(self.image)
+        self.image = Image.open("ressources/ennemiblanc.png")
         self.image = self.image.resize((40, 40))
         self.photo = ImageTk.PhotoImage(self.image)
         bonus=self.canvas.create_image(0 , 300, image=self.photo, tags="bonus")

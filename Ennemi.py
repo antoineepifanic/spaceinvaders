@@ -89,7 +89,7 @@ class Ennemi:
     def missiles(self, coords):
         # Parcourir tous les ennemis
         for ennemi in self.ennemis:
-            if ennemi in self.canvas.find_all():
+            if ennemi in self.canvas.find_withtag("groupe"):
                 # Générer un nombre aléatoire pour décider de tirer
                 # Vous pouvez ajuster la probabilité en changeant le nombre
                 if randint(1, 50) == 1:  # 1% de chance de tirer à chaque frame
