@@ -22,7 +22,7 @@ class Tir:
         if self.collision_boss():
             return
             
-        # Ensuite vérifier la collision avec les ennemis normaux
+        # Ensuite vérifier la collision avec les ennemis
         if self.collision_ennemi():
             return
             
@@ -35,20 +35,17 @@ class Tir:
 
     def collision_protection(self):
         coords_tir = self.canvas.bbox(self.rect)
-        # Trouver tous les rectangles gris (protections)
         all_items = self.canvas.find_all()
         for item in all_items:
-            # Vérifier si l'item est un rectangle gris
             if self.canvas.type(item) == "rectangle":
                 fill_color = self.canvas.itemcget(item, "fill")
                 if fill_color == "gray":
                     coords_protection = self.canvas.bbox(item)
-                    if coords_protection:  # Vérifier si le rectangle existe toujours
+                    if coords_protection:
                         if (coords_tir[2] > coords_protection[0] and
                             coords_tir[0] < coords_protection[2] and
                             coords_tir[3] > coords_protection[1] and
                             coords_tir[1] < coords_protection[3]):
-                            # Collision détectée, supprimer le bloc de protection
                             self.canvas.delete(item)
                             return True
         return False
@@ -65,7 +62,6 @@ class Tir:
                 coords_tir[1] < coords_boss[3]):
                 self.canvas.delete(self.rect)
                 self.canvas.delete(boss_item)
-                # Mettre à jour le score avec les points du boss
                 fenetre = self.canvas.winfo_toplevel()
                 fenetre.score += self.points_boss
                 fenetre.update_score()
@@ -84,10 +80,17 @@ class Tir:
                 coords_tir[1] < coords_ennemi[3]):
                 self.canvas.delete(self.rect)
                 self.canvas.delete(ennemi)
+                
                 # Mettre à jour le score
                 fenetre = self.canvas.winfo_toplevel()
                 fenetre.score += self.points_par_ennemi
                 fenetre.update_score()
+
+                # Vérifier s'il reste des ennemis
+                ennemis_restants = list(self.canvas.find_withtag("groupe"))
+                if len(ennemis_restants) == 0:
+                    self.canvas.after(10, lambda: fenetre.game_over())
+                
                 self.canvas.update()
                 return True
         return False

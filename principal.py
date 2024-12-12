@@ -81,6 +81,7 @@ fenetre.title("Space Invaders")
 fenetre.geometry("800x800")
 fenetre.score = 0
 fenetre.update_score = update_score
+fenetre.game_over = game_over  # Ajout de cette ligne
 
 # Configuration des dimensions
 Width = 675
