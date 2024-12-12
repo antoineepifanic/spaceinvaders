@@ -19,12 +19,12 @@ class Ennemi:
         
         # Créer les ennemis (première rangée)
         for n in range(8):
-            ennemi = self.canvas.create_image(60 + n*75, 150, image=self.photo, tags="groupe")
+            ennemi = self.canvas.create_image(60 + n*75, 50, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         
         # Créer les ennemis (deuxième rangée)
         for n in range(8):
-            ennemi = self.canvas.create_image(60 + n*75, 200, image=self.photo, tags="groupe")
+            ennemi = self.canvas.create_image(60 + n*75, 100, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         
         # Démarrer le mouvement
