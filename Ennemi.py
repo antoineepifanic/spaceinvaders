@@ -1,4 +1,14 @@
-# coding: utf-8
+"""
+Ennemi.py
+Gestion des ennemis standards du jeu Space Invaders
+
+Ce module gère le comportement des ennemis standards : leur création,
+déplacement, tirs et détection des conditions de fin de partie.
+
+Date de création : Décembre 2024
+Auteur : Antoine & Armand
+"""
+
 import tkinter as tk
 from Tir_Ennemi import Tir_Ennemi
 from random import randint
@@ -7,8 +17,14 @@ from Boss import Ennemi_bonus
 
 class Ennemi:
     def __init__(self, canvas):
+        """
+        Initialise le groupe d'ennemis
+        
+        Args:
+            canvas: La zone de jeu où les ennemis seront affichés
+        """
         self.canvas = canvas
-        self.dx = -3
+        self.dx = -3  # Vitesse de déplacement horizontal
         self.image = Image.open("ressources/ennemiblanc.png")
         self.image = self.image.resize((40, 40))
         self.photo = ImageTk.PhotoImage(self.image)
@@ -17,29 +33,28 @@ class Ennemi:
         self.apparition_bonus = 0
         self.ennemis = []
         self.ennemis_tirs = []
-        self.limite_y = 400  # Hauteur des protections grises
+        self.limite_y = 400  # Position Y maximale avant game over
         
-        # Créer les ennemis (première rangée)
+        # Création de la première rangée d'ennemis
         for n in range(8):
             ennemi = self.canvas.create_image(60 + n*75, 50, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         
-        # Créer les ennemis (deuxième rangée)
+        # Création de la deuxième rangée
         for n in range(8):
             ennemi = self.canvas.create_image(60 + n*75, 100, image=self.photo, tags="groupe")
             self.ennemis.append(ennemi)
         
-        # Démarrer le mouvement
         self.deplacer_image()
 
     def deplacer_image(self):
+        """Gère le déplacement du groupe d'ennemis et leurs actions"""
         if not self.ennemis:
             return
         
-        # Déplacer le groupe d'ennemis
         self.canvas.move("groupe", self.dx, 0)
         
-        # Vérifier la position y maximale des ennemis
+        # Vérification de la position Y maximale des ennemis
         max_y = 0
         for ennemi in self.ennemis:
             if ennemi in self.canvas.find_withtag("groupe"):
@@ -47,13 +62,13 @@ class Ennemi:
                 if y > max_y:
                     max_y = y
         
-        # Si les ennemis sont trop bas, game over
+        # Game over si les ennemis descendent trop bas
         if max_y >= self.limite_y:
             fenetre = self.canvas.winfo_toplevel()
             fenetre.game_over()
             return
         
-        # Collecter les coordonnées actuelles des ennemis existants
+        # Collecte des coordonnées pour le rebond sur les bords
         coords = []
         for ennemi in self.ennemis:
             if ennemi in self.canvas.find_withtag("groupe"):
@@ -62,42 +77,42 @@ class Ennemi:
         if not coords:
             return
         
+        # Gestion des rebonds sur les bords
         minX = min(coords)
         maxX = max(coords)
         
         if minX <= 35 or maxX >= 635:
             self.dx *= -1
         
-        # Générer des missiles
         self.missiles(coords)
         
-        # Vérifier les collisions des tirs ennemis
+        # Gestion des tirs ennemis
         for tir_ennemi in list(self.ennemis_tirs):
             try:
                 tir_ennemi.CollisionJoueur()
             except Exception:
                 self.ennemis_tirs.remove(tir_ennemi)
         
-        # Incrémenter les compteurs
+        # Gestion des compteurs
         self.descente_compteur += 1
         self.apparition_bonus += 1
         
-        # Descendre tous les 30 * 100ms = 3000ms
+        # Descente périodique des ennemis
         if self.descente_compteur >= 30:
             self.canvas.move("groupe", 0, 20)
             self.descente_compteur = 0
         
-        # Créer le boss bonus
+        # Apparition de l'ennemi bonus
         if self.apparition_bonus == 160:
             self.apparition_bonus = 0
             self.boss = Ennemi_bonus(self.canvas)
 
-        # Continuer le mouvement
         self.canvas.after(100, self.deplacer_image)
 
     def missiles(self, coords):
+        """Gère les tirs des ennemis"""
         for ennemi in self.ennemis:
             if ennemi in self.canvas.find_withtag("groupe"):
-                if randint(1, 50) == 1:
+                if randint(1, 50) == 1:  # 2% de chance de tirer par frame
                     tir_ennemi = Tir_Ennemi(self.canvas, ennemi, 0)
                     self.ennemis_tirs.append(tir_ennemi)

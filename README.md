@@ -1,23 +1,29 @@
-# spaceinvaders
+Space Invaders
+Un jeu Space Invaders développé en Python avec Tkinter.
 
-à  faire :
-    - régler le problème de l'ennemi : il doit se déplacer sur tt l'écran 
-    -rajouter des ennemis et gerer les dynamiques de groupe 
-    - question des protections 
-    - gérer les collisions entre ennemi et missile 
-    -ajout des tirs des ennemis 
-    -visuels (joueurs missiles)
-    - commencer a voir comment implémenter le score 
-    - ajout de différents niveau, boss ... 
+Description :
+Ce jeu reprend les mécaniques classiques de Space Invaders :
 
+Contrôlez un vaisseau qui peut se déplacer horizontalement et tirer
+Détruisez tous les ennemis avant qu'ils n'atteignent votre position
+Évitez ou détruisez les tirs ennemis
+Des protections peuvent vous aider à bloquer les tirs ennemis
+Un ennemi bonus apparaît périodiquement pour des points supplémentaires
 
-à faire (antoine):
-    - modifier le score pour de vrai
-    - faire un meilleur score
-    - ajouter textures vaiseaux et ennemis
-    - réparer le bouton démarrer partie
-    - faire en sorte que flèche du haut tire aussi
+Points et Score :
 
+Ennemi standard : 25 points
+Ennemi bonus (vert) : 150 points
+Bonus fin de partie : 50 points par vie restante
 
+Contrôles :
 
--game over a update
+Flèche Gauche : Déplacer le vaisseau à gauche
+Flèche Droite : Déplacer le vaisseau à droite
+Espace : Tirer
+
+Conditions de fin de partie
+La partie se termine dans les cas suivants :
+
+Victoire : Tous les ennemis sont détruits
+Défaite :Le joueur perd ses 3 vies ou les ennemis atteignent la hauteur des protections
