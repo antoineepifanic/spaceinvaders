@@ -23,31 +23,27 @@ from PIL import Image, ImageTk
 from Protections import Protections
 
 def afficher_a_propos():
-    # Créer une nouvelle fenêtre
     fenetre_apropos = tk.Toplevel(fenetre)
     fenetre_apropos.title("À propos")
-    fenetre_apropos.geometry("500x400")
+    fenetre_apropos.geometry("400x300")
     
-    # Empêcher l'interaction avec la fenêtre principale
     fenetre_apropos.transient(fenetre)
     fenetre_apropos.grab_set()
     
-    # Ajouter le texte
     texte_apropos = """Space Invaders
     
 Version 1.0
     
-Créé par Antoine et Armand les meilleurs élèves de la promotion 3ETI
+Créé par [Votre nom]
     
-Ce jeu est une réplique de Space Invaders,
-développé pour le module CS-DEV
+Ce jeu est une réplique du célèbre Space Invaders,
+développé dans le cadre d'un projet éducatif.
     
-© 2024 - Aucun droits réservés"""
+© 2024 - Tous droits réservés"""
     
     label = tk.Label(fenetre_apropos, text=texte_apropos, justify=tk.LEFT, padx=20, pady=20)
     label.pack(expand=True)
     
-    # Bouton pour fermer la fenêtre
     bouton_fermer = tk.Button(fenetre_apropos, text="Fermer", command=fenetre_apropos.destroy)
     bouton_fermer.pack(pady=20)
 
@@ -56,6 +52,9 @@ def demarrer_partie(event):
     frame_partie.pack(fill="both", expand=True)
     fenetre.update_idletasks()
     global animation, joueur, protections
+    # Réinitialiser le score au début de chaque partie
+    fenetre.score = 0
+    update_score()
     animation = Ennemi(canvas_partie)
     joueur = Joueur(canvas_partie)
     fenetre.joueur = joueur  # Stocker le joueur comme attribut de la fenêtre
@@ -78,6 +77,9 @@ def update_lives_display():
     else:
         game_over()
 
+def update_score():
+    label_score.config(text=f"Score : {fenetre.score}")
+
 def game_over():
     canvas_partie.create_text(
         Width // 2, 
@@ -91,6 +93,8 @@ def game_over():
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
 fenetre.geometry("800x800")
+fenetre.score = 0  # Initialiser le score
+fenetre.update_score = update_score  # Ajouter la méthode update_score à la fenêtre
 
 # Menu principal
 canvas_menu = tk.Canvas(fenetre, bg="black", width=800, height=650)
