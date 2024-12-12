@@ -3,6 +3,7 @@ import tkinter as tk
 from Tir_Ennemi import Tir_Ennemi
 from random import randint
 from PIL import Image, ImageTk
+from Boss import Ennemi_bonus 
 
 class Ennemi:
     def __init__(self, canvas):
@@ -12,7 +13,8 @@ class Ennemi:
         self.image = self.image.resize((40, 40))
         self.photo = ImageTk.PhotoImage(self.image)
         self.compteur = 0
-        self.descente_compteur = 0  # Nouveau compteur pour la descente
+        self.descente_compteur = 0
+        self.appa_bonu =0  # Nouveau compteur pour la descente
         self.ennemis = []
         self.ennemis_tirs = []
         
@@ -72,12 +74,15 @@ class Ennemi:
         
         # Incrémenter le compteur de descente
         self.descente_compteur += 1
+        self.appa_bonu +=1
         
         # Descendre tous les 50 * 100ms = 5000ms (5 secondes)
         if self.descente_compteur >= 30:
             self.canvas.move("groupe", 0, 20)  # Descendre de 100 pixels
             self.descente_compteur = 0
         
+        if self.appa_bonu == 160 :
+            bonus = Ennemi_bonus
         # Continuer le mouvement
         self.canvas.after(100, self.deplacer_image)
 

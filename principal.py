@@ -21,6 +21,7 @@ from Joueur import Joueur
 from Ennemi import Ennemi
 from PIL import Image, ImageTk
 from Protections import Protections
+from Boss import Ennemi_bonus
 
 def afficher_a_propos():
     # Créer une nouvelle fenêtre
