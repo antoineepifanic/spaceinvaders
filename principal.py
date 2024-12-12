@@ -33,7 +33,7 @@ def demarrer_partie(event):
     animation = Ennemi(canvas_partie)
     joueur = Joueur(canvas_partie)
     fenetre.joueur = joueur  # Stocker le joueur comme attribut de la fenêtre
-    protections = Protections(canvas_partie, width=Width, y_position=250)
+    protections = Protections(canvas_partie, width=Width, y_position=400)
     update_lives_display()
 
 def retourner_menu():
