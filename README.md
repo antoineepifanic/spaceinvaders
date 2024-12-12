@@ -17,3 +17,7 @@
     - ajouter textures vaiseaux et ennemis
     - réparer le bouton démarrer partie
     - faire en sorte que flèche du haut tire aussi
+
+
+
+-game over a update

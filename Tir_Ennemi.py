@@ -1,13 +1,12 @@
 class Tir_Ennemi:
     def __init__(self, canvas, start, altitude):
         self.canvas = canvas
-        # Utiliser les coordonnées actuelles de l'ennemi pour le tir
         current_coords = self.canvas.coords((start,))
         self.rect = self.canvas.create_rectangle(
             current_coords[0]-4, 
-            current_coords[1] + 15,  # Partir du bas de l'ennemi
+            current_coords[1] + 15,
             current_coords[0]+4, 
-            current_coords[1] + 30,  # Un peu plus bas
+            current_coords[1] + 30,
             fill="blue"
         )
         self.dy = 5
@@ -23,13 +22,38 @@ class Tir_Ennemi:
             self.canvas.delete(self.rect)
             return
         
-        # Vérifier la collision avec le vaisseau
+        # Vérifier d'abord la collision avec les protections
+        if self.CollisionProtection():
+            self.canvas.delete(self.rect)
+            return
+        
+        # Ensuite vérifier la collision avec le vaisseau
         if self.CollisionJoueur():
             self.canvas.delete(self.rect)
             self.can_coll = False
             return
         
         self.canvas.after(20, self.avancer)
+
+    def CollisionProtection(self):
+        coords_tir = self.canvas.bbox(self.rect)
+        # Trouver tous les rectangles gris (protections)
+        all_items = self.canvas.find_all()
+        for item in all_items:
+            # Vérifier si l'item est un rectangle gris
+            if self.canvas.type(item) == "rectangle":
+                fill_color = self.canvas.itemcget(item, "fill")
+                if fill_color == "gray":
+                    coords_protection = self.canvas.bbox(item)
+                    if coords_protection:  # Vérifier si le rectangle existe toujours
+                        if (coords_tir[2] > coords_protection[0] and
+                            coords_tir[0] < coords_protection[2] and
+                            coords_tir[3] > coords_protection[1] and
+                            coords_tir[1] < coords_protection[3]):
+                            # Collision détectée, supprimer le bloc de protection
+                            self.canvas.delete(item)
+                            return True
+        return False
 
     def CollisionJoueur(self):
         vaisseau = self.canvas.find_withtag("vaisseau")
@@ -41,7 +65,6 @@ class Tir_Ennemi:
                 coords_tir_ennemi[3] > coords_vaisseau[1] and
                 coords_tir_ennemi[1] < coords_vaisseau[3]):
                 print("Collision avec le vaisseau !")
-                # Récupérer l'instance du joueur à partir de la fenêtre
                 joueur = self.canvas.winfo_toplevel().joueur
                 game_over = joueur.perdre_vie()
                 if game_over:
