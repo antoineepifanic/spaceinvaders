@@ -41,7 +41,7 @@ class Ennemi:
         # Collecter les coordonnées actuelles des ennemis existants
         coords = []
         for ennemi in self.ennemis:
-            if ennemi in self.canvas.find_withtags("groupe")():
+            if ennemi in self.canvas.find_withtag("groupe"):
                 coords.append(self.canvas.coords(ennemi)[0])
         
         # S'il n'y a plus de coordonnées, arrêter
