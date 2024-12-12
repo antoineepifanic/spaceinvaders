@@ -34,12 +34,12 @@ def afficher_a_propos():
     
 Version 1.0
     
-Créé par [Votre nom]
+Créé par Armand et Antoine les meilleurs étudiants de la promotion 3ETI.
     
-Ce jeu est une réplique du célèbre Space Invaders,
-développé dans le cadre d'un projet éducatif.
+Ce jeu est une réplique de Space Invaders,
+développé pour le module CS-DEV.
     
-© 2024 - Tous droits réservés"""
+© 2024 - Aucun droits réservés"""
     
     label = tk.Label(fenetre_apropos, text=texte_apropos, justify=tk.LEFT, padx=20, pady=20)
     label.pack(expand=True)
@@ -52,12 +52,11 @@ def demarrer_partie(event):
     frame_partie.pack(fill="both", expand=True)
     fenetre.update_idletasks()
     global animation, joueur, protections
-    # Réinitialiser le score au début de chaque partie
     fenetre.score = 0
     update_score()
     animation = Ennemi(canvas_partie)
     joueur = Joueur(canvas_partie)
-    fenetre.joueur = joueur  # Stocker le joueur comme attribut de la fenêtre
+    fenetre.joueur = joueur
     protections = Protections(canvas_partie, width=Width, y_position=400)
     update_lives_display()
 
@@ -67,6 +66,12 @@ def retourner_menu():
             canvas_partie.delete(item)
     frame_partie.pack_forget()
     canvas_menu.pack(fill="both", expand=True)
+    meilleurscore = fonctions.record()
+    for item in canvas_menu.find_all():
+        if "score" in canvas_menu.gettags(item):
+            canvas_menu.delete(item)
+    canvas_menu.create_text(20, 20, text=f"Meilleur score={meilleurscore}", 
+                       fill="white", font=('Helvetica', 12), anchor="nw", tags="score")
     fenetre.update_idletasks()
 
 def update_lives_display():
@@ -81,19 +86,17 @@ def update_score():
     label_score.config(text=f"Score : {fenetre.score}")
 
 def game_over():
-    # Supprimer tous les éléments du jeu sauf l'arrière-plan
     for item in canvas_partie.find_all():
-        # Ne pas supprimer l'arrière-plan qui a le tag "background"
         if "background" not in canvas_partie.gettags(item):
             canvas_partie.delete(item)
     
-    # Réinitialiser les variables globales si nécessaire
     global animation, joueur, protections
     animation = None
     joueur = None
     protections = None
     
-    # Afficher le message Game Over
+    fonctions.sauvegarder_record(fenetre.score)
+    
     canvas_partie.create_text(
         Width // 2, 
         Height // 2, 
@@ -102,7 +105,7 @@ def game_over():
         fill='red'
     )
     
-    # Optionnellement, afficher le score final
+    # Afficher le score final
     canvas_partie.create_text(
         Width // 2,
         (Height // 2) + 50,
@@ -115,8 +118,8 @@ def game_over():
 fenetre = tk.Tk()
 fenetre.title("Space Invaders")
 fenetre.geometry("800x800")
-fenetre.score = 0  # Initialiser le score
-fenetre.update_score = update_score  # Ajouter la méthode update_score à la fenêtre
+fenetre.score = 0
+fenetre.update_score = update_score
 
 # Menu principal
 canvas_menu = tk.Canvas(fenetre, bg="black", width=800, height=650)
@@ -130,7 +133,8 @@ canvas_menu.tag_bind("quitter", "<Button-1>", lambda e: fenetre.quit())
 # Zone de texte pour le meilleur score
 meilleurscore = fonctions.record()
 canvas_menu.create_text(20, 20, text=f"Meilleur score={meilleurscore}", 
-                       fill="white", font=('Helvetica', 12), anchor="nw")
+                       fill="white", font=('Helvetica', 12), 
+                       anchor="nw", tags="score")
 
 # Texte "Démarrer Partie"
 canvas_menu.create_text(400, 600, text="Démarrer Partie", 
