@@ -34,6 +34,11 @@ Structures demandées :
 
 Un chargé de TD nous a dit que l'implémentation de piles et de files n'était pas obligatoire finalement. Il ne nous a pas paru pertinent,
 dans le cadre de notre programme, d'en implanter, d'où leur absence.
-Cependant, nous travaillons évidemment avec de nombreuses listes, notamment pour gérer les coordonnées des ennemis, comme par exemple :
+Cependant, nous travaillons évidemment avec de nombreuses listes, notamment pour gérer les coordonnées, comme par exemple :
 
-ligne 71 dans ennemi.py
+ligne 71 dans Ennemi.py
+
+Tous les collisions sont gérées en analysant les coordonnées des éléments du jeu qui se trouvent elles-mêmes dans des listes,
+comme par exemple :
+
+ligne 112 dans Tir_Ennemi.py
