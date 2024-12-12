@@ -29,3 +29,11 @@ Victoire : Tous les ennemis sont détruits
 Défaite :Le joueur perd ses 3 vies ou les ennemis atteignent la hauteur des protections
 
 https://github.com/antoineepifanic/spaceinvaders
+
+Structures demandées :
+
+Un chargé de TD nous a dit que l'implémentation de piles et de files n'était pas obligatoire finalement. Il ne nous a pas paru pertinent,
+dans le cadre de notre programme, d'en implanter, d'où leur absence.
+Cependant, nous travaillons évidemment avec de nombreuses listes, notamment pour gérer les coordonnées des ennemis, comme par exemple :
+
+ligne 71 dans ennemi.py
