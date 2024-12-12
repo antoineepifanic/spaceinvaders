@@ -53,6 +53,11 @@ def game_over():
             canvas_partie.delete(item)
     
     global animation, joueur, protections
+    
+    # Ajouter le bonus pour les vies restantes
+    if joueur and joueur.vies > 0:
+        fenetre.score += joueur.vies * 50
+        
     animation = None
     joueur = None
     protections = None
@@ -67,6 +72,7 @@ def game_over():
         fill='red'
     )
     
+    # Afficher le score final
     canvas_partie.create_text(
         Width // 2,
         (Height // 2) + 50,
